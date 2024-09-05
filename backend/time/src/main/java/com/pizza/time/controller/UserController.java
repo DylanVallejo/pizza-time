@@ -16,12 +16,12 @@ public class UserController {
 
     private final UsersService usersService;
 
-    @GetMapping
-    public ResponseEntity<String> helloWorld(){
-
-        return  new ResponseEntity<>(usersService.testMethod(), HttpStatus.OK);
-//        return new ResponseEntity<>("Hello wordl", HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity<String> helloWorld(){
+//
+//        return  new ResponseEntity<>(usersService.testMethod(), HttpStatus.OK);
+////        return new ResponseEntity<>("Hello wordl", HttpStatus.OK);
+//    }
 
 
     @PostMapping("/create")

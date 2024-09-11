@@ -16,14 +16,6 @@ public class UserController {
 
     private final UsersService usersService;
 
-//    @GetMapping
-//    public ResponseEntity<String> helloWorld(){
-//
-//        return  new ResponseEntity<>(usersService.testMethod(), HttpStatus.OK);
-////        return new ResponseEntity<>("Hello wordl", HttpStatus.OK);
-//    }
-
-
     @PostMapping("/create")
     public ResponseEntity<UsersDto> createUser(@RequestBody  Users newUser){
 

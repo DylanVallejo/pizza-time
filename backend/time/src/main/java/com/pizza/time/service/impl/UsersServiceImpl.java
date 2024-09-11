@@ -19,12 +19,6 @@ public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
 
     @Override
-    @Transactional
-    public String testMethod() {
-        return "test de prueba";
-    }
-
-    @Override
     public UsersDto registerUser(Users user) {
 
         Users userDB = usersRepository.save(user);

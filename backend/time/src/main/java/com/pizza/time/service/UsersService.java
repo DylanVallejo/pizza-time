@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 public interface UsersService {
 
 
-    String testMethod();
-
     UsersDto registerUser(Users user);
 
 

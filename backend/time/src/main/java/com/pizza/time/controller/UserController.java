@@ -3,6 +3,7 @@ package com.pizza.time.controller;
 
 import com.pizza.time.dto.UsersDto;
 import com.pizza.time.entity.Users;
+import com.pizza.time.exceptions.GeneralException;
 import com.pizza.time.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,10 +18,15 @@ public class UserController {
     private final UsersService usersService;
 
     @PostMapping("/create")
-    public ResponseEntity<UsersDto> createUser(@RequestBody  Users newUser){
+    public ResponseEntity<UsersDto> createUser(@RequestBody  Users newUser) throws GeneralException {
 
         return new ResponseEntity<>(usersService.registerUser(newUser), HttpStatus.OK);
 
+    }
+
+    @GetMapping("/asegurado")
+    public String jwtTest(){
+        return "hello world";
     }
 
 

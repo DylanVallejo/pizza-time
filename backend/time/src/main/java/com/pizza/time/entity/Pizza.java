@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,23 +24,38 @@ public class Pizza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pizza_id")
-    public Integer pizzaId;
+    private Integer pizzaId;
 
     @Column(name = "size")
     @Enumerated(EnumType.STRING)
-    public Size size;
+    private Size size;
 
     @Column(name = "crust")
     @Enumerated(EnumType.STRING)
-    public Crust crust;
+    private Crust crust;
 
     @Column(name = "quantity")
-    public Integer quantity;
+    private Integer quantity;
 
     @Column(name = "price")
-    public BigDecimal price;
+    private BigDecimal price;
 
-    @Column(name = "orders_order_id")
-    public Integer orders_order_id;
+
+//    @Column(name = "orders_order_id")
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Orders order;
+
+    @ManyToMany
+    @JoinTable(
+            name = "pizza_toppings",  //name of the intermediate table
+            joinColumns = @JoinColumn(name = "pizza_id"), //name of the foreign key in pizza
+            inverseJoinColumns = @JoinColumn(name = "topics_id") // name of the foreign key in toppings
+    )
+    private List<Toppings> toppings = new ArrayList<>();
+
+    //    @ManyToOne
+//    @JoinColumn(name = "order_id")
+//    private Orders order;
 
 }

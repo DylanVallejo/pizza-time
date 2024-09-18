@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -17,8 +20,13 @@ public class Toppings {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer topics_id;
+    private Integer topics_id;
 
-    public String name;
+    @Column(name = "name")
+    private String name;
+
+    //    @JoinColumn(name = "pizza")
+    @ManyToMany(mappedBy = "toppings") // let the behavior to the other entity
+    private List<Pizza> pizzas = new ArrayList<>();
 
 }

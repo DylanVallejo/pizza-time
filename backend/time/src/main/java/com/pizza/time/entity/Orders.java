@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,23 +23,38 @@ public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer order_id;
+    @Column(name = "order_id")
+    private Integer orderId;
+
 
     @Enumerated(EnumType.STRING)
-    public Type type;
+    @Column(name = "type")
+    private Type type;
 
-    public Boolean favorite;
+    @Column(name = "favorite")
+    private Boolean favorite;
 
-    public Boolean paid;
+    @Column(name = "paid")
+    private Boolean paid;
 
-    public LocalDate date;
+    @Column(name = "date")
+    private LocalDate date;
 
-    public BigDecimal deliveryFee;
+    @Column(name = "deliveryFee")
+    private BigDecimal deliveryFee;
 
-    public BigDecimal tax;
+    @Column(name = "tax")
+    private BigDecimal tax;
 
-    public BigDecimal total;
+    @Column(name = "total")
+    private BigDecimal total;
 
-    public Integer users_user_id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users users;
+
+//    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order")
+    private List<Pizza> pizzas = new ArrayList<>();
 
 }

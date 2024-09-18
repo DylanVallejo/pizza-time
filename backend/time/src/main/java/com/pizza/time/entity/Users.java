@@ -4,6 +4,9 @@ package com.pizza.time.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -15,21 +18,31 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    public Integer userId;
+    private Integer userId;
 
-//    @Column(name = "name")
-    public String name;
+    @Column(name = "name")
+    private String name;
 
-    public String lastName;
+    @Column(name = "last_name")
+    private String lastName;
 
-    public String email;
+    @Column(name = "email")
+    private String email;
 
-    public String adress;
+    @Column(name = "address")
+    private String address;
 
-    public String city;
+    @Column(name = "city")
+    private String city;
 
-    public String state;
+    @Column(name = "state")
+    private String state;
 
-    public String password;
+    @Column(name = "password")
+    private String password;
+
+    //    @JoinColumn(name = "user_id")@OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Orders> orders = new ArrayList<>();
 
 }

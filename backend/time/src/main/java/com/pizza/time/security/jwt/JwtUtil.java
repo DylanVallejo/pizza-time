@@ -54,10 +54,12 @@ public class JwtUtil {
     private Boolean isTokenExpired(String token){return extractExpiration(token).before(new Date());}
 
 //    generates a new token
-    public String generateToken(String username, String role){
+    public String generateToken(String email, Integer userId, String name){
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", role);
-        return createToken(claims, username);
+//        claims.put("role", role);
+        claims.put("userId", userId);
+        claims.put("name", name);
+        return createToken(claims, email);
     }
 
     public String createToken(Map<String, Object> claims, String subject){

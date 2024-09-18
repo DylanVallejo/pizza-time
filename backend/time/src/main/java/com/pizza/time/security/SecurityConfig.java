@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->{
-                    request.requestMatchers("api/v1/users/create")
+                    request.requestMatchers("api/v1/users/create", "api/v1/login")
                             .permitAll()
                             .anyRequest()
                             .authenticated();

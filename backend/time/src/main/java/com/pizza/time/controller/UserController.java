@@ -20,7 +20,7 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<UsersDto> createUser(@RequestBody  Users newUser) throws GeneralException {
 
-        return new ResponseEntity<>(usersService.registerUser(newUser), HttpStatus.OK);
+        return new ResponseEntity<>(usersService.registerUser(newUser), HttpStatus.CREATED);
 
     }
 

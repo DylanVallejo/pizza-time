@@ -8,8 +8,6 @@ import com.pizza.time.exceptions.GeneralException;
 
 public interface UsersService {
 
-
     UsersDto registerUser(Users user) throws GeneralException;
-
 
 }

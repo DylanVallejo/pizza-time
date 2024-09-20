@@ -8,10 +8,9 @@ import com.pizza.time.service.ToppingsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,6 +22,11 @@ public class ToppingsController {
     @PostMapping
     public ResponseEntity<ToppingsDto> createTopic(@RequestBody Toppings toppings) throws GeneralException {
         return new ResponseEntity<>(toppingsService.createTopic(toppings), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Toppings>> getAllToppings() throws GeneralException {
+        return new ResponseEntity<>(toppingsService.getToppings(), HttpStatus.OK);
     }
 
 }

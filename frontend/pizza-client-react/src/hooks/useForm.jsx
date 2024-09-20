@@ -10,10 +10,21 @@ export const useForm = ( initialForm = {}) => {
   }
 
   const onInputChange = ({ target }) => {
+    
     const { name, value } = target
+    // console.log(target)
     setFormState({
       ...formState,
       [ name ] : value
+    })
+  }
+  
+  const checksSelected = ({target}) => {
+    const { name, value } = target
+    console.log({name, topics_id: value})
+    setFormState({
+      ...formState,
+      toppings: formState.toppings.concat({ topics_id: value, name})
     })
   }
 
@@ -22,7 +33,8 @@ export const useForm = ( initialForm = {}) => {
     ...formState,
     formState,
     onInputChange,
-    onResetForm
+    onResetForm,
+    checksSelected
 
   }
 }

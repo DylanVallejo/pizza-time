@@ -26,11 +26,6 @@ public class Orders {
     @Column(name = "order_id")
     private Integer orderId;
 
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type")
-    private Type type;
-
     @Column(name = "favorite")
     private Boolean favorite;
 

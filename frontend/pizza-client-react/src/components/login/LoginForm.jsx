@@ -2,11 +2,13 @@ import { useState } from 'react'
 import PropTypes from 'prop-types'
 import pizzaService from '../../service/pizzas.js'
 import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router'
 
 export const LoginForm = ( { handleLogin }  ) => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   const Toast = Swal.mixin({
     toast: true,
@@ -26,6 +28,7 @@ export const LoginForm = ( { handleLogin }  ) => {
     console.log(user)
     pizzaService.login(user).then( response => {
       console.log(response)
+      navigate("/home")
       Toast.fire({
         icon: 'success',
         title: 'Login successful',

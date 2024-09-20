@@ -1,6 +1,7 @@
 package com.pizza.time.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +27,8 @@ public class Toppings {
     private String name;
 
     //    @JoinColumn(name = "pizza")
-    @ManyToMany(mappedBy = "toppings") // let the behavior to the other entity
+    @ManyToMany(mappedBy = "toppings", fetch=FetchType.LAZY) // let the behavior to the other entity
+    @JsonIgnore
     private List<Pizza> pizzas = new ArrayList<>();
 
 }

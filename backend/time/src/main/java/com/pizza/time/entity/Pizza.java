@@ -3,6 +3,7 @@ package com.pizza.time.entity;
 
 import com.pizza.time.enums.Crust;
 import com.pizza.time.enums.Size;
+import com.pizza.time.enums.Type;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,10 @@ public class Pizza {
     @Column(name = "pizza_id")
     private Integer pizzaId;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private Type type;
+
     @Column(name = "size")
     @Enumerated(EnumType.STRING)
     private Size size;
@@ -46,11 +51,11 @@ public class Pizza {
     @JoinColumn(name = "order_id")
     private Orders order;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(
             name = "pizza_toppings",  //name of the intermediate table
             joinColumns = @JoinColumn(name = "pizza_id"), //name of the foreign key in pizza
-            inverseJoinColumns = @JoinColumn(name = "topics_id") // name of the foreign key in toppings
+            inverseJoinColumns = @JoinColumn(name = "topics_id")// name of the foreign key in toppings
     )
     private List<Toppings> toppings = new ArrayList<>();
 

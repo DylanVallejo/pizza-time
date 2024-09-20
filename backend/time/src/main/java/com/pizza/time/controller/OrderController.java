@@ -1,10 +1,8 @@
 package com.pizza.time.controller;
 
-
-import com.pizza.time.dto.PizzaDto;
-import com.pizza.time.entity.Pizza;
+import com.pizza.time.entity.Orders;
 import com.pizza.time.exceptions.GeneralException;
-import com.pizza.time.service.PizzaService;
+import com.pizza.time.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/v1/order")
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/pizza")
-public class PizzaController {
+public class OrderController {
 
-    private final PizzaService pizzaService;
+    private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<Pizza> createPizza(@RequestBody PizzaDto pizzaDto) throws GeneralException {
-        return new ResponseEntity<>(pizzaService.createPizza(pizzaDto), HttpStatus.CREATED);
-    }
+    public ResponseEntity<Orders> generateNewOrder(@RequestBody Orders order) throws GeneralException {
 
+        return new ResponseEntity<>(orderService.generateOrder(order), HttpStatus.CREATED);
+
+    }
 
 }

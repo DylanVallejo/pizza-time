@@ -9,6 +9,7 @@ import com.pizza.time.service.ToppingsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,16 @@ public class ToppingsServiceImpl implements ToppingsService {
         try {
             Toppings newTopic = toppingsRepository.save(toppings);
             return mapper.toppingsToToppingsDto(newTopic);
+        }catch (Exception ex){
+            throw new GeneralException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public List<Toppings> getToppings() throws GeneralException{
+
+        try {
+            return  toppingsRepository.findAll();
         }catch (Exception ex){
             throw new GeneralException(ex.getMessage());
         }

@@ -4,31 +4,33 @@ import { useForm } from '../../hooks/useForm.jsx'
 
 export const PizzaForm = () => {
 	
-	const { formState, onInputChange, onResetForm,checksSelected, type, size, crust, quantity, price ,toppings: [ ] } = useForm({
+	const { formState, onInputChange, onResetForm,checksSelected, type, size, crust, quantity ,toppings: [ ] } = useForm({
 		type: '',
 		size: '',
 		crust: '',
 		quantity: 0,
-		price: 0,
-		toppings: [
-			
-		]
+		// price: 0,
+		toppings: []
 	})
 	
-	const [toppings,setToppings] = useState([])
+	const [toppingsDb,setToppingsDb] = useState([])
+	const [initalToppingsState, setInitalToppingsState] = useState([])
+	
 	
 	useEffect(()=>{
-		pizzaService.getToppings()
-		.then(toppingsDb =>{
-			console.log(toppingsDb)
-			setToppings(toppingsDb)	
-		})
+			pizzaService.getToppings()
+			.then(toppingsDbResult =>{
+				console.log(toppingsDbResult)
+				setToppingsDb(toppingsDbResult)	
+				setInitalToppingsState(toppingsDbResult)
+			})
 	},[])
 	
 	
 	function handleSubmit(e){
 		e.preventDefault()
-		
+		onResetForm()
+		setToppingsDb(initalToppingsState)
 		console.log( formState )
 	}
 
@@ -65,15 +67,19 @@ export const PizzaForm = () => {
 					</div>
 					<div className='d-flex col '>
 						<label className='me-1'>QtY:</label>
-						<input  type='number' className='w-100'/>
+						<input  type='number' name='quantity' className='w-100' value={quantity} min={1} onChange={onInputChange}/>
 					</div>
 				</div>
 			<div className="d-flex justify-content-evenly flex-wrap my-3 border border-3 border-black" style={{  height: 'auto' }}>
 				{
-					toppings?.map((topic)=>{
+					toppingsDb.length === 0 
+					? 
+						<h4>Loading toppings...</h4>
+					:
+					toppingsDb?.map((topic)=>{
 						return(
-							<div className='d-flex m-1' style={{width: "200px" }}>
-								<input className="me-3" type='checkbox' value={topic.topics_id} name={topic.name} onChange={checksSelected} />
+							<div className='d-flex m-1' style={{width: "200px" } } key={topic.name}>
+								<input className="me-3" type='checkbox' value={topic.topics_id} name={topic.name}  onChange={checksSelected} />
 								<label>{topic.name}</label>	
 							</div>
 						)

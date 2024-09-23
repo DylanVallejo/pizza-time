@@ -1,6 +1,7 @@
 package com.pizza.time.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pizza.time.enums.Type;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -50,6 +51,7 @@ public class Orders {
 
 //    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
     @OneToMany(mappedBy = "order")
+    @JsonIgnore
     private List<Pizza> pizzas = new ArrayList<>();
 
 }

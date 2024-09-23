@@ -14,24 +14,35 @@ export const PizzaForm = () => {
 	})
 	
 	const [toppingsDb,setToppingsDb] = useState([])
-	const [initalToppingsState, setInitalToppingsState] = useState([])
-	
+	const [checkedState, setCheckedState] = useState([]);	
+
 	
 	useEffect(()=>{
-			pizzaService.getToppings()
-			.then(toppingsDbResult =>{
-				console.log(toppingsDbResult)
-				setToppingsDb(toppingsDbResult)	
-				setInitalToppingsState(toppingsDbResult)
-			})
+		pizzaService.getToppings()
+		.then(toppingsDbResult =>{
+			setToppingsDb(toppingsDbResult)	
+			setCheckedState(new Array(toppingsDbResult.length).fill(false));
+		})
 	},[])
 	
+	
+	const handleCheckboxChange = (event, position) => {
+		const { checked } = event.target
+
+		const updatedCheckedState = checkedState.map((item, index) =>
+			index === position ? checked : item
+		)
+
+		setCheckedState(updatedCheckedState)
+		checksSelected(event)
+		
+	}
 	
 	function handleSubmit(e){
 		e.preventDefault()
 		onResetForm()
-		setToppingsDb(initalToppingsState)
-		console.log( formState )
+		setCheckedState(new Array(toppingsDb.length).fill(false))
+		console.log(formState)
 	}
 
 	return (
@@ -76,11 +87,11 @@ export const PizzaForm = () => {
 					? 
 						<h4>Loading toppings...</h4>
 					:
-					toppingsDb?.map((topic)=>{
+					toppingsDb?.map(({name , topics_id}, index) => {
 						return(
-							<div className='d-flex m-1' style={{width: "200px" } } key={topic.name}>
-								<input className="me-3" type='checkbox' value={topic.topics_id} name={topic.name}  onChange={checksSelected} />
-								<label>{topic.name}</label>	
+							<div className='d-flex m-1' style={{width: "200px" } } key={name}>
+								<input className="me-3" type='checkbox' value={topics_id} name={name} key={index} onChange={(event) => handleCheckboxChange(event, index)}  checked={checkedState[index]}/>
+								<label>{name}</label>	
 							</div>
 						)
 					})

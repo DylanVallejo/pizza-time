@@ -39,7 +39,7 @@ public class JwtFilter extends OncePerRequestFilter {
             String token = null;
             if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
                 token = authorizationHeader.substring(7);
-                userName = jwtUtil.extracUsername(token);
+                userName = jwtUtil.extractUsername(token);
                 claims = jwtUtil.extractAllClaims(token);
             }
 
@@ -62,5 +62,7 @@ public class JwtFilter extends OncePerRequestFilter {
     public Boolean isUser(){return "user".equalsIgnoreCase((String) claims.get("role"));}
 
     public String getCurrentUser(){return userName;}
+
+    public Integer getCurrentUserId() { return Integer.valueOf(claims.get("userId").toString()); }
 
 }

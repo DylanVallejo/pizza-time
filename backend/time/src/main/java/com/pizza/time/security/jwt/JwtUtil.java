@@ -29,7 +29,7 @@ public class JwtUtil {
         secret = Keys.hmacShaKeyFor(apikeySecretBytes);
     }
 
-    public String extracUsername(String token){return extractClaims(token, Claims::getSubject);}
+    public String extractUsername(String token){return extractClaims(token, Claims::getSubject);}
 
     public Date extractExpiration(String token){
         return extractClaims(token, Claims::getExpiration);
@@ -73,7 +73,7 @@ public class JwtUtil {
 
 
     public Boolean validateToken(String token , UserDetails userDetails){
-        final String userName = extracUsername(token);
+        final String userName = extractUsername(token);
         return (userName.equals(userDetails.getUsername()) && !isTokenExpired((token)));
     }
 

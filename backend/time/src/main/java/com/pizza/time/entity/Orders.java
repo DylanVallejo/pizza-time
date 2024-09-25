@@ -47,6 +47,7 @@ public class Orders {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private Users users;
 
 //    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)

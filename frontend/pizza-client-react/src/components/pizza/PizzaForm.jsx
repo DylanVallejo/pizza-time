@@ -24,6 +24,7 @@ export const PizzaForm = () => {
 			setCheckedState(new Array(toppingsDbResult.length).fill(false));
 		})
 	},[])
+	// add a function to calculate the price of the pizza
 	
 	
 	const handleCheckboxChange = (event, position) => {

@@ -25,6 +25,7 @@ export const PizzaForm = () => {
 		})
 	},[])
 	// add a function to calculate the price of the pizza for every pizza and toppings selected
+	// the back will set the price of the pizza also need a function to calculate taxes for delivery and add stripe
 	
 	
 	const handleCheckboxChange = (event, position) => {

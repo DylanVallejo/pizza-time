@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 export const useForm = ( initialForm = {}) => {
-  console.log(initialForm)
 
   const [formState, setFormState] = useState( initialForm )
 
@@ -25,7 +24,6 @@ export const useForm = ( initialForm = {}) => {
   
   const checksSelected = ({target}) => {
     const { name, value , checked } = target
-    console.log({ name, topics_id: value})
     
       if (checked) {
         setFormState({

@@ -38,8 +38,19 @@ export const PizzaForm = () => {
 
 		setCheckedState(updatedCheckedState)
 		checksSelected(event)
+		handlePrice(updatedCheckedState)
 		
 	}
+	
+	const handlePrice = (toppings) => {
+		let price = 0;
+		const toppingPrice = toppings.filter(( item ) => item === true )
+		price = 0.25 * toppingPrice.length 
+		// validate the size of the pizza also the crust for prices
+		price = ( formState.quantity * 10 ) + price
+		console.log(price)
+	}
+	
 	
 	function handleSubmit(e){
 		e.preventDefault()

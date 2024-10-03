@@ -32,6 +32,14 @@ export const useForm = ( initialForm = {}) => {
         })
       }
   }
+  
+  const setPrice = ( value ) => {
+    console.log(`desde price ${value}`)
+    setFormState({
+      ...formState,
+      price: value
+    })
+  }
 
   return {
 
@@ -39,7 +47,8 @@ export const useForm = ( initialForm = {}) => {
     formState,
     onInputChange,
     onResetForm,
-    checksSelected
+    checksSelected,
+    setPrice
 
   }
 }

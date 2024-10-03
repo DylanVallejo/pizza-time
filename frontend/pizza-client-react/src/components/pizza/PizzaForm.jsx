@@ -4,18 +4,18 @@ import { useForm } from '../../hooks/useForm.jsx'
 
 export const PizzaForm = () => {
 	
-	const { formState, onInputChange, onResetForm,checksSelected, type, size, crust, quantity ,toppings: [ ] } = useForm({
+	const { formState, onInputChange, onResetForm,checksSelected,setPrice, type, size, crust, quantity, price, toppings: [ ] } = useForm({
 		type: '',
 		size: '',
 		crust: '',
 		quantity: 0,
-		// price: 0,
+		price: 0,
 		toppings: []
 	})
 	
 	const [toppingsDb,setToppingsDb] = useState([])
-	const [checkedState, setCheckedState] = useState([]);	
-
+	const [checkedState, setCheckedState] = useState([]);
+	const [initialPrice, setInitialPrice] = useState(0);
 	
 	useEffect(()=>{
 		pizzaService.getToppings()
@@ -29,6 +29,63 @@ export const PizzaForm = () => {
 	// for payment an order can have multiple pizzas
 	
 	
+	
+	
+	const handlePrice = (toppings) => {
+		let price = 0;
+		const toppingPrice = toppings.filter(( item ) => item === true )
+		price = 0.25 * toppingPrice.length 
+		// validate the size of the pizza also the crust for prices //    8 , 10 , 12, 15
+		// price = ( formState.quantity * 10 ) + price
+		//    THIN , NORMAL , THICK, 1,2,3
+		// CARRY, SERVE, HOME
+		//    0,0,3
+		let type = formState.type
+		if(type === "CARRY" || type === "SERVE"){
+			price = price
+		}else if(type ==="HOME"){
+			price += 3
+		}else{
+			console.log(`Insert a valid size.`);
+		}
+		
+		
+		switch (formState.size) {
+			case "S":
+				price += ( formState.quantity * 8 ) 
+				break;
+			case "M":
+				price += ( formState.quantity * 10 )
+				break;
+			case "L":
+				price += ( formState.quantity * 12 )
+				break
+			case "XL":
+				price += ( formState.quantity * 15 )
+				break
+			default:
+				console.log(`Insert a valid size.`);
+				break;
+		}
+		switch (formState.crust) {
+			case "THIN":
+				price += 1
+				break;
+			case "NORMAL":
+				price += 2
+				break;
+			case "THICK":
+				price += 3
+				break;
+			default:
+				console.log("Insert a valid crust.")
+				break;
+		}
+		setInitialPrice(price)
+		setPrice(price)
+		// console.log(price)
+	}
+	
 	const handleCheckboxChange = (event, position) => {
 		const { checked } = event.target
 
@@ -38,26 +95,19 @@ export const PizzaForm = () => {
 
 		setCheckedState(updatedCheckedState)
 		checksSelected(event)
-		handlePrice(updatedCheckedState)
+		// handlePrice(updatedCheckedState)
 		
 	}
-	
-	const handlePrice = (toppings) => {
-		let price = 0;
-		const toppingPrice = toppings.filter(( item ) => item === true )
-		price = 0.25 * toppingPrice.length 
-		// validate the size of the pizza also the crust for prices
-		price = ( formState.quantity * 10 ) + price
-		console.log(price)
-	}
-	
 	
 	function handleSubmit(e){
 		e.preventDefault()
 		onResetForm()
+		// price not seted on the form
+		handlePrice(checkedState)
 		setCheckedState(new Array(toppingsDb.length).fill(false))
 		console.log(formState)
 	}
+	
 
 	return (
 		<form className='container-fluid' onSubmit={e => handleSubmit(e)}>

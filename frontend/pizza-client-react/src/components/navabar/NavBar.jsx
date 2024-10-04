@@ -1,20 +1,20 @@
 import React from 'react'
 
 export const NavBar = () => {
-	return (
-		<div className='header'>
-			<button>
+  return (
+    <div className='header'>
+      <button>
 				Home
-			</button>
-			<button>
+      </button>
+      <button>
 				Order
-			</button>
-			<button>
+      </button>
+      <button>
 				Account
-			</button>
-			<button>
+      </button>
+      <button>
 				Logout
-			</button>
-		</div>
-	)
+      </button>
+    </div>
+  )
 }

@@ -13,7 +13,7 @@ export const useForm = ( initialForm = {}) => {
   }
 
   const onInputChange = ({ target }) => {
-    
+
     const { name, value } = target
     console.log(target)
     setFormState({
@@ -21,20 +21,24 @@ export const useForm = ( initialForm = {}) => {
       [ name ] : value
     })
   }
-  
-  const checksSelected = ({target}) => {
-    const { name, value , checked } = target
-    
-      if (checked) {
-        setFormState({
-          ...formState,
-          toppings: formState.toppings.concat({ topics_id: value, name})
-        })
-      }
+
+  const checksSelected = ({ target }) => {
+    const { name, value, checked } = target
+
+    if (checked) {
+      setFormState({
+        ...formState,
+        toppings: [...formState.toppings, { topics_id: value, name }]
+      })
+    } else {
+      setFormState({
+        ...formState,
+        toppings: formState.toppings.filter(topping => topping.topics_id !== value)
+      })
+    }
   }
-  
+
   const setPrice = ( value ) => {
-    console.log(`desde price ${value}`)
     setFormState({
       ...formState,
       price: value

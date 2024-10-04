@@ -26,9 +26,10 @@ export const LoginForm = ( { handleLogin }  ) => {
   function submitForm ( e ) {
     e.preventDefault()
     console.log(user)
-    pizzaService.login(user).then( response => {
-      console.log(response)
-      navigate("/home")
+    pizzaService.login(user).then( loggedUser => {
+      window.localStorage.setItem('loggedUser', JSON.stringify(loggedUser))
+      pizzaService.setToken(loggedUser.token)
+      navigate('/home')
       Toast.fire({
         icon: 'success',
         title: 'Login successful',

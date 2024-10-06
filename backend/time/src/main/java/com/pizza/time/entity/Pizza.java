@@ -51,7 +51,7 @@ public class Pizza {
     @JoinColumn(name = "order_id")
     private Orders order;
 
-    @ManyToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REMOVE})
     @JoinTable(
             name = "pizza_toppings",  //name of the intermediate table
             joinColumns = @JoinColumn(name = "pizza_id"), //name of the foreign key in pizza

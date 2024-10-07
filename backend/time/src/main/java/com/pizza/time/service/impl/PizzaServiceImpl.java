@@ -11,6 +11,7 @@ import com.pizza.time.repository.PizzaRepository;
 import com.pizza.time.repository.UsersRepository;
 import com.pizza.time.security.jwt.JwtFilter;
 import com.pizza.time.service.PizzaService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ public class PizzaServiceImpl implements PizzaService {
     private final JwtFilter jwtFilter;
 
     @Override
+    @Transactional
     public Pizza createPizza(PizzaDto pizzaDto) throws GeneralException {
         try {
 

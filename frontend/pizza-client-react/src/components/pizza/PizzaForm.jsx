@@ -96,7 +96,7 @@ export const PizzaForm = () => {
     pizzaService.createPizza(formState)
       .then(pizzaResult => { console.log(pizzaResult) })
     // mientras la orden no sea pagada este seguira adicionanado pizzas al mismo order id
-    // una vez pagado creara una nueva orden con un nuevo order id
+    // una vez pagado creara una nueva orden con un nuevo order id.
     onResetForm()
     setCheckedState(new Array(toppingsDb.length).fill(false))
   }
